@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 指定校验配置文件的DTD信息 -->
+<!DOCTYPE validators PUBLIC 
+	"-//Apache Struts//XWork Validator 1.0.3//EN"
+	"http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+<!-- 校验文件的根元素 -->
+<validators>
+	<field name="camera.id">
+		<field-validator type="int">
+			<param name="min">0</param>
+			<message>必须输入整型数</message>
+		</field-validator>
+	</field>
+	<field name="camera.ipAddress">
+		<!-- 指定ipAddress属性必须满足必填规则 -->
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>必须输入IP地址</message>
+		</field-validator>
+	</field>
+	<field name="camera.channelNumber">
+		<field-validator type="int">
+			<param name="min">0</param>
+			<message>必须输入通道号</message>
+		</field-validator>
+	</field>
+	<field name="camera.name">
+		<!-- 指定name属性必须满足必填规则 -->
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>必须输入名字</message>
+		</field-validator>
+	</field>
+	<field name="camera.belongs">
+		<field-validator type="int">
+			<param name="min">0</param>
+			<message>必须输入整型数</message>
+		</field-validator>
+	</field>
+	<field name="camera.hzAngle">
+		<field-validator type="double">
+			<message>必须输入浮点数</message>
+		</field-validator>
+	</field>
+	<field name="camera.vzAngle">
+		<field-validator type="double">
+			<message>必须输入浮点数</message>
+		</field-validator>
+	</field>
+	<field name="camera.latitude">
+		<field-validator type="int">
+			<param name="min">0</param>
+			<message>必须输入整型数</message>
+		</field-validator>
+	</field>
+	<field name="camera.longitude">
+		<field-validator type="int">
+			<param name="min">0</param>
+			<message>必须输入整型数</message>
+		</field-validator>
+	</field>
+	<field name="camera.zoom">
+		<field-validator type="int">
+			<param name="min">0</param>
+			<message>必须输入整型数</message>
+		</field-validator>
+	</field>
+	<field name="camera.focusing">
+		<field-validator type="int">
+			<param name="min">0</param>
+			<message>必须输入整型数</message>
+		</field-validator>
+	</field>
+	<field name="camera.moving">
+		<field-validator type="int">
+			<param name="min">0</param>
+			<message>必须输入整型数</message>
+		</field-validator>
+	</field>
+</validators>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 指定校验配置文件的DTD信息 -->
+<!DOCTYPE validators PUBLIC 
+	"-//Apache Struts//XWork Validator 1.0.3//EN"
+	"http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+<!-- 校验文件的根元素 -->
+<validators>
+	<field name="user.id">
+		<field-validator type="int">
+			<param name="min">0</param>
+			<message>必须输入整型数</message>
+		</field-validator>
+	</field>
+	<field name="user.name">
+		<!-- 指定user_name属性必须满足必填规则 -->
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>必须输入名字</message>
+		</field-validator>
+		<field-validator type="regex">
+			<param name="regex"><![CDATA[(\w{4,25})]]></param>
+			<message>必须输入名字</message>		
+		</field-validator>
+	</field>
+	<field name="user.password">
+		<!-- 指定user_password属性必须满足必填规则 -->
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>必须输入密码</message>
+		</field-validator>
+	</field>
+	<field name="user_password_confirm">
+		<!-- 指定user_password_confirm属性必须满足必填规则 -->
+		<field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+			<message>必须输入确认密码</message>
+		</field-validator>
+		<field-validator type="fieldexpression">
+			<param name="expression"><![CDATA[user_password_confirm.equals(user.password)]]></param>
+			<message></message>
+		</field-validator>
+	</field>
+</validators>
