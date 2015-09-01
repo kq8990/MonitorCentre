@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 
 <%@taglib prefix="s" uri="/struts-tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -31,7 +31,7 @@
         ===
     -->
 
-<title>摄像机配置</title>
+<title>用户组权限管理</title>
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -59,6 +59,8 @@
 <link rel='stylesheet'
 	href='${pageContext.request.contextPath}/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css'>
 <link rel='stylesheet'
+	href='${pageContext.request.contextPath}/bower_components/datatables-1.10.7/media/css/jquery.dataTables.css'>
+<link rel='stylesheet'
 	href='${pageContext.request.contextPath}/css/jquery.noty.css'>
 <link rel='stylesheet'
 	href='${pageContext.request.contextPath}/css/noty_theme_default.css'>
@@ -78,7 +80,7 @@
 
 <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="${pageContext.request.contextPath}/js/html5.js"></script>
 <![endif]-->
 
 <!-- The fav icon -->
@@ -94,7 +96,7 @@
 		<div class="row">
 			<div class="col-sm-2 col-lg-2">
 				<s:include value="sidebar.jsp">
-					<s:param name="active" value="'camera'"/>
+					<s:param name="active" value="'authority'"/>
 				</s:include>
 			</div>
 
@@ -104,12 +106,11 @@
 						<div class="box-inner">
 							<div class="box-header well" data-original-title="">
 								<h2>
-									<i class="glyphicon glyphicon-facetime-video"></i>用户组
+									<i class="glyphicon glyphicon-facetime-video"></i> 权限管理
 								</h2>
 								<div class="pull-right">
-									<a class="btn btn-default btn-xs" href="javascript:void(0)" onclick="addNewTr()"> 
-									    <i class="glyphicon glyphicon-edit icon-white"></i>
-									    添加用户组
+									<a class="btn btn-inverse btn-default btn-xs" href="javascript:void(0)" onclick="editAuthorityTable()"> 
+									    <i class="glyphicon glyphicon-edit icon-white"></i> 添加权限组
 									</a>
 								</div>
 							</div>
@@ -128,57 +129,59 @@
 								        </tr>
 								    </thead>
 								    <tbody id="tbody_authority">
-								        <c:forEach var="authority" items="${authorityList }">
-								            <tr id="tr_authority_${authority.id }">
-								                <td>${authority.description }</td>
-								                <td><input id="checkbox_0" type="checkbox" 
-								                        <c:if test="${authority.ptzDirectControl == 1}">checked="checked"</c:if>>
-								                </td>
-								                <td><input id="checkbox_1" type="checkbox"
-								                        <c:if test="${authority.ptzCameraParameter  == 1}">checked="checked"</c:if>>
-								                </td>
-								                <td><input id="checkbox_2" type="checkbox"
-								                        <c:if test="${authority.ptzPresetUse  == 1}">checked="checked"</c:if>>
-								                </td>
-								                <td><input id="checkbox_3" type="checkbox"
-								                        <c:if test="${authority.viewVideo  == 1}">checked="checked"</c:if>>
-								                </td>
-								                <td><input id="checkbox_4" type="checkbox"
-								                        <c:if test="${authority.autoPatrol  == 1}">checked="checked"</c:if>>
-								                </td>
-								                <td><input id="checkbox_5" type="checkbox"
-								                        <c:if test="${authority.videoMonitor  == 1}">checked="checked"</c:if>>
-								                </td>
-								                <td class="center">
-								                    <a class="btn btn-info btn-xs" href="javascript:void(0)" onclick="updateAuthority(${authority.id})"> 
-								                        <i class="glyphicon glyphicon-edit icon-white"></i>
-								                        保存编辑
-								                    </a>
-								                    <a class="btn btn-danger btn-xs" href="javascript:void(0)" onclick="deleteAuthority(${authority.id })"> 
-								                        <i class="glyphicon glyphicon-trash icon-white"></i>
-								                        删除
-								                    </a>
-								                </td>
-								            </tr>
-								        </c:forEach>
+								    	<c:forEach var="authority" items="${authorityList }">
+								    		<tr id="tr_authority_${authority.id}">
+								    		    <td>${authority.description }</td>
+								    		    <td><input id="checkbox_0" type="checkbox" 
+								    		    		<c:if test="${authority.ptzDirectControl == 1}">checked="true"</c:if>>
+								    		    </td>
+								    		    <td><input id="checkbox_1" type="checkbox"
+								    		    		<c:if test="${authority.ptzCameraParameter == 1}">checked="true"</c:if>>
+								    		    </td>
+								    		    <td><input id="checkbox_2" type="checkbox"
+								    		    		<c:if test="${authority.ptzPresetUse == 1}">checked="true"</c:if>>
+								    		    </td>
+								    		    <td><input id="checkbox_3" type="checkbox"
+								    		    		<c:if test="${authority.viewVideo == 1}">checked="true"</c:if>>
+								    		    </td>
+								    		    <td><input id="checkbox_4" type="checkbox"
+								    		    		<c:if test="${authority.autoPatrol == 1}">checked="true"</c:if>>
+								    		    </td>
+								    		    <td><input id="checkbox_5" type="checkbox"
+								    		    		<c:if test="${authority.videoMonitor == 1}">checked="true"</c:if>>
+								    		    </td>
+								    		    <td><a class="btn btn-info btn-xs" href="javascript:void(0)"
+								    		            onclick="updateAuthority(${authority.id})"> 
+								    		            <i class="glyphicon glyphicon-edit icon-white"></i>
+								    		            编辑
+								    		        </a>
+								    		        <a class="btn btn-danger btn-xs" href="javascript:void(0)"
+								    		            onclick="deleteAuthority(${authority.id})"> 
+								    		            <i class="glyphicon glyphicon-trash icon-white"></i>
+								    		            删除
+								    		        </a>
+								    		    </td>
+								    		</tr>
+										</c:forEach>
 								    </tbody>
 								</table>
 							</div>
-							<form class="" id="form_authority_update">
-								<input name="authority.id" id="authority_id" type="text">
-								<input name="authority.description" id="authority_description" type="text">
-							    <input name="authority.ptzDirectControl" type="number">
-							    <input name="authority.ptzCameraParameter" type="number">
-							    <input name="authority.ptzPresetUse" type="number">
-							    <input name="authority.viewVideo" type="number">
-							    <input name="authority.autoPatrol" type="number">
-							    <input name="authority.videoMonitor" type="number">
-							</form>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
+		<form id="form_authority" class="hide">
+			<input name="authority.id" id="authority_id" type="text">
+			<input name="authority.description" id="authority_description" type="text">
+		    <input name="authority.ptzDirectControl" id="authority_ptzDirectControl" type="number">
+		    <input name="authority.ptzCameraParameter" id="authority_ptzCameraParameter" type="number">
+		    <input name="authority.ptzPresetUse" id="authority_ptzPresetUse" type="number">
+		    <input name="authority.viewVideo" id="authority_viewVideo" type="number">
+		    <input name="authority.autoPatrol" id="authority_autoPatrol" type="number">
+		    <input name="authority.videoMonitor" id="authority_videoMonitor" type="number">
+		</form>
 
 		<s:include value="footer.jsp"></s:include>
 	</div>
@@ -194,7 +197,7 @@
 	<script src='${pageContext.request.contextPath}/bower_components/moment/min/moment.min.js'></script>
 	<script src='${pageContext.request.contextPath}/bower_components/fullcalendar/dist/fullcalendar.min.js'></script>
 	<!-- data table plugin -->
-	<script src='${pageContext.request.contextPath}/js/jquery.dataTables.min.js'></script>
+	<script src='${pageContext.request.contextPath}/bower_components/datatables-1.10.7/media/js/jquery.dataTables.js'></script>
 
 	<!-- select or dropdown enhancer -->
 	<script src="${pageContext.request.contextPath}/bower_components/chosen/chosen.jquery.min.js"></script>
@@ -220,14 +223,28 @@
 	<script src="${pageContext.request.contextPath}/js/charisma.js"></script>
 
 	<script type="text/javascript">
-		function addAuthority(){
-			$("#authority_id").val(null);
-			$("#authority_description").val($("#input_authority_description").val());
-			$("#form_authority_update input[type='number']").each(function(index) {
-			    $(this).val($("#tr_authority_0 #checkbox_" + index).is(":checked") ? 1 : 0);
+		$(document).ready(function () {
+			$('#table_authority').dataTable({
+				"language": {
+					"url": "bower_components/datatables-1.10.7/Chinese.json"
+				}
+			});
+    	});
+
+		function editAuthorityTable() {
+			var row = "<tr><td><input id='authority_description' type='text'></td><td><input id='checkbox_0' type='checkbox'></td><td><input id='checkbox_1' type='checkbox'></td><td><input id='checkbox_2' type='checkbox'></td><td><input id='checkbox_3' type='checkbox'></td><td><input id='checkbox_4' type='checkbox'></td><td><input id='checkbox_5' type='checkbox'></td><td><a class='btn btn-info btn-xs' href='javascript:void(0)' onclick='saveAuthority()'><i class='glyphicon glyphicon-edit icon-white'></i> 保存编辑</a></td></tr>";
+
+			$("#tbody_authority tr:eq(0)").before(row);
+		}
+
+		function saveAuthority() {
+			$("#form_authority #authority_id").val(0);
+			$("#form_authority #authority_description").val($("#tbody_authority #authority_description").val());
+			$("#form_authority input[type='number']").each(function(index) {
+			    $(this).val($("#tbody_authority tr:eq(0) #checkbox_" + index).is(":checked") ? 1 : 0);
 			});
 			
-			var params = $("#form_authority_update").serialize();
+			var params = $("#form_authority").serialize();
 			$.ajax({
 				url : "authority_save",
 				type : "POST",
@@ -251,31 +268,29 @@
 				url : "authority_delete",
 				type : "POST",
 				data : {
-					aid : id
+					aid: id
 				},
 				async : false,
-				contentType: "application/x-www-form-urlencoded; charset=utf-8",
 				success : function(data) {
 					var check = eval("(" + data + ")");
 					if (check.result == 1) {
 						alert("删除成功");
-						window.location = "authority_setting";
+						window.location = "camera_setting";
 					} else {
 						alert("删除失败");
 					}
 				}
-			});
+			});		
 		}
 
 		function updateAuthority(id) {
-			$("#authority_id").val(id);
-			$("#authority_description").val($("#tbody_authority #tr_authority_" + id + " td:eq(0)").text());
-			
-		    $("#form_authority_update input[type='number']").each(function(index) {
-		        $(this).val($("#tr_authority_" + id + " #checkbox_" + index).is(":checked") ? 1 : 0);
-		    });
-			
-			var params = $("#form_authority_update").serialize();
+			$("#form_authority #authority_id").val(id);
+			$("#form_authority #authority_description").val($("#tbody_authority #tr_authority_" + id + " td:eq(0)").text());
+			$("#form_authority input[type='number']").each(function(index) {
+			    $(this).val($("#tbody_authority #tr_authority_" + id + " #checkbox_" + index).is(":checked") ? 1 : 0);
+			});
+
+			var params = $("#form_authority").serialize();
 			$.ajax({
 				url : "authority_update",
 				type : "POST",
@@ -288,17 +303,12 @@
 						alert("保存成功");
 						window.location = "authority_setting";
 					} else {
-						alert("保存失败，输入有误");
+						alert("保存失败");
 					}
 				}
 			});
 		}
 
-		function addNewTr(){
-			var row = "<tr id='tr_authority_0'><td><input id='input_authority_description' type='text'></td><td><input id='checkbox_0' type='checkbox'></td><td><input id='checkbox_1' type='checkbox'></td><td><input id='checkbox_2' type='checkbox'></td><td><input id='checkbox_3' type='checkbox'></td><td><input id='checkbox_4' type='checkbox'></td><td><input id='checkbox_5' type='checkbox'></td><td><a class='btn btn-warning btn-xs' href='javascript:void(0)' onclick='addAuthority()'><i class='glyphicon glyphicon-edit icon-white'></i> 添　　加</a></td></tr>";
-
-			$("#tr_authority_1").before(row);
-		}
 	</script>
 </body>
 </html>

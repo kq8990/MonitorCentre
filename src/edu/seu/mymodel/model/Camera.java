@@ -67,6 +67,22 @@ public class Camera {
 	@Column(name = "moving", nullable = false)
 	private int moving;
 
+	//
+	@Column(name = "HWBG", nullable = false)
+	private int lightSource;
+
+	@Column(name = "accessmode", nullable = false)
+	private int accessMode;
+
+	@Column(name = "anglereturn", nullable = false)
+	private int angleReturn;
+
+	@Column(name = "blackheat", nullable = false)
+	private int temperatureDifference;
+
+	@Column(name = "show_window", nullable = false)
+	private int showWindow;
+
 	public Camera() {
 		super();
 		this.id = 0;
@@ -86,6 +102,11 @@ public class Camera {
 		this.zoom = 0;
 		this.focusing = 0;
 		this.moving = 0;
+		this.lightSource = 0;
+		this.accessMode = 0;
+		this.angleReturn = 0;
+		this.temperatureDifference = 0;
+		this.showWindow = 0;
 	}
 
 	/*
@@ -225,6 +246,46 @@ public class Camera {
 
 	public void setMoving(int moving) {
 		this.moving = moving;
+	}
+
+	public int getLightSource() {
+		return lightSource;
+	}
+
+	public void setLightSource(int lightSource) {
+		this.lightSource = lightSource;
+	}
+
+	public int getAccessMode() {
+		return accessMode;
+	}
+
+	public void setAccessMode(int accessMode) {
+		this.accessMode = accessMode;
+	}
+
+	public int getAngleReturn() {
+		return angleReturn;
+	}
+
+	public void setAngleReturn(int angleReturn) {
+		this.angleReturn = angleReturn;
+	}
+
+	public int getTemperatureDifference() {
+		return temperatureDifference;
+	}
+
+	public void setTemperatureDifference(int temperatureDifference) {
+		this.temperatureDifference = temperatureDifference;
+	}
+
+	public int getShowWindow() {
+		return showWindow;
+	}
+
+	public void setShowWindow(int showWindow) {
+		this.showWindow = showWindow;
 	}
 
 }

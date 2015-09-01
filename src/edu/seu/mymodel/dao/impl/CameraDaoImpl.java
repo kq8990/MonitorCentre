@@ -9,9 +9,16 @@ import edu.seu.mymodel.model.Camera;
 public class CameraDaoImpl extends BaseDaoImpl<Camera> implements CameraDao {
 
 	@Override
-	public List<Camera> findByname(Camera camera) {
-		return find("select camera from Camera where camera.name = ?0",
-				camera.getName());
+	public List<Camera> findByName(Camera camera) {
+		String hql = "select camera from Camera as camera where camera.name = ?0";
+
+		return find(hql, camera.getName());
 	}
 
+	@Override
+	public List<Camera> findByChannelNumber(int channelNumber) {
+		String hql = "select camera from Camera as camera where camera.channelNumber = ?0";
+
+		return find(hql, channelNumber);
+	}
 }

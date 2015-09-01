@@ -70,7 +70,7 @@
 
 		<action name="camera_*" class="edu.seu.mymodel.action.CameraAction" method="{1}">
 			<interceptor-ref name="userStack"></interceptor-ref>
-			<result name="list">/WEB-INF/content/camera_list.jsp</result>
+			<result name="list">/WEB-INF/content/list_camera.jsp</result>
 			<result name="json" type="json">
 				<param name="root">map</param>
 				<param name="noCache">true</param>
@@ -87,7 +87,7 @@
 		
 		<action name="user_*" class="edu.seu.mymodel.action.AdminAction" method="{1}">
 			<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>			
-			<result name="list">/WEB-INF/content/user_list.jsp</result>
+			<result name="list">/WEB-INF/content/list_user.jsp</result>
 			<result name="json" type="json">
 				<param name="root">map</param>
 				<param name="noCache">true</param>
@@ -100,5 +100,18 @@
 				<param name="includeProperties">actionErrors\[\d+\], fieldErrors\..+$, actionMessages\[\d+\]</param>
 			</result>
 		</action>
+		
+		<action name="video_control" class="edu.seu.mymodel.action.VideoControlAction">
+			<result name="list">/WEB-INF/content/video_control.jsp</result>
+		</action>
+		
+		<action name="preset_*" class="edu.seu.mymodel.action.PresetAction" method="{1}">
+			<result name="list">/WEB-INF/content/video_control.jsp</result>
+			<result name="json" type="json">
+				<param name="root">map</param>
+				<param name="noCache">true</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
 	</package>
-</struts>    
+</struts>

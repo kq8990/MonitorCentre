@@ -1,8 +1,7 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 
 	<!-- topbar starts -->
     <div class="navbar navbar-default" role="navigation">
-
         <div class="navbar-inner">
             <button type="button" class="navbar-toggle pull-left animated flip">
                 <span class="sr-only">Toggle navigation</span>
@@ -10,13 +9,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html"> <img alt="Charisma Logo" src="img/logo20.png" class="hidden-xs"/>
-                <span>综合管理平台</span></a>
+            <a class="navbar-brand" href="home_page">
+            	<img alt="Charisma Logo" src="img/logo.slnopec.png" class="hidden-xs"/>
+                <span>河口采油厂 — 视频监控系统综合管理平台</span>
+            </a>
 
             <!-- user dropdown starts -->
             <div class="btn-group pull-right">
                 <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> ${username }</span>
+                    <i class="glyphicon glyphicon-user"></i>
+					<span class="hidden-sm hidden-xs"> ${username }</span>
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
@@ -39,8 +41,8 @@
             <!-- theme selector starts -->
             <div class="btn-group pull-right theme-container animated tada hide">
                 <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <i class="glyphicon glyphicon-tint"></i><span
-                        class="hidden-sm hidden-xs"> Change Theme / Skin</span>
+                    <i class="glyphicon glyphicon-tint"></i>
+					<span class="hidden-sm hidden-xs"> Change Theme / Skin</span>
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" id="themes">

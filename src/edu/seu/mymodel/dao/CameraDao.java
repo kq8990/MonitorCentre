@@ -7,6 +7,20 @@ import edu.seu.mymodel.model.Camera;
 
 public interface CameraDao extends BaseDao<Camera> {
 
-	List<Camera> findByname(Camera camera);
-	
+	/**
+	 * 根据通道名称获取所有Camera实体
+	 * 
+	 * @param camera
+	 * @return Camera实体List
+	 */
+	List<Camera> findByName(Camera camera);
+
+	/**
+	 * 根据通道号获取所有Camera实体
+	 * 
+	 * @param channelNumber
+	 * @return Camera实体List
+	 */
+	List<Camera> findByChannelNumber(int channelNumber);
+
 }

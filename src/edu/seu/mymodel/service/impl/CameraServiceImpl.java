@@ -47,7 +47,7 @@ public class CameraServiceImpl implements CameraService {
 
 	@Override
 	public List<Camera> findCameraByName(Camera camera) {
-		return cameraDao.findByname(camera);
+		return cameraDao.findByName(camera);
 	}
 
 }
