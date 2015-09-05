@@ -83,7 +83,7 @@ public class CameraAction extends ActionSupport {
 		String regex02 = "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}";
 
 		// 配置修改信息
-		Camera cameraTemp = cameraService.findCameraByID(camera);
+		Camera cameraTemp = cameraService.findCameraByID(camera.getId());
 		cameraTemp.setIpAddress(camera.getIpAddress());
 		cameraTemp.setChannelNumber(camera.getChannelNumber());
 		cameraTemp.setName(camera.getName());

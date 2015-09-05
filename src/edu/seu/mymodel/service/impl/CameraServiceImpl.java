@@ -30,19 +30,13 @@ public class CameraServiceImpl implements CameraService {
 	}
 
 	@Override
-	public List<Camera> findAllCameras() {
-		return cameraDao.findAll(Camera.class);
-	}
-
-	@Override
-	public Camera findCameraByID(Camera camera) {
-		return cameraDao.get(Camera.class, camera.getId());
-	}
-
-	@Override
 	public Camera findCameraByID(int id) {
 		return cameraDao.get(Camera.class, id);
+	}
 
+	@Override
+	public List<Camera> findAllCameras() {
+		return cameraDao.findAll(Camera.class);
 	}
 
 	@Override
@@ -50,4 +44,8 @@ public class CameraServiceImpl implements CameraService {
 		return cameraDao.findByName(camera);
 	}
 
+	@Override
+	public List<Camera> findCameraByChannelNumber(int channelNumber) {
+		return cameraDao.findByChannelNumber(channelNumber);
+	}
 }

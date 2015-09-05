@@ -25,7 +25,7 @@ public class AuthorityServiceImpl implements AuthorityService {
 	}
 
 	@Override
-	public void edit(Authority authority) {
+	public void update(Authority authority) {
 		authorityDao.update(authority);
 	}
 

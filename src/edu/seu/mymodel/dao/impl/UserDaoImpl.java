@@ -10,9 +10,9 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 
 	@Override
 	public List<User> findByNameAndPassword(User user) {
-		return find(
-				"select user from User user where user.name = ?0 and user.password=?1",
-				user.getName(), user.getPassword());
+		String hql = "select user from User user where user.name = ?0 and user.password = ?1";
+
+		return find(hql, user.getName(), user.getPassword());
 	}
 
 }

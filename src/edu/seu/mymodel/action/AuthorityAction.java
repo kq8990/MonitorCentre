@@ -52,7 +52,7 @@ public class AuthorityAction extends ActionSupport {
 
 	public String update() {
 		if (authority.getId() > 0) {
-			authorityService.edit(authority);
+			authorityService.update(authority);
 
 			map.clear();
 			map.put("result", "1");

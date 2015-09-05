@@ -19,6 +19,12 @@ public class AdminAction extends ActionSupport {
 
 	protected UserService userService;
 
+	/**
+	 * 保存User实体Action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	public String save() throws Exception {
 		userService.save(user);
 
@@ -31,30 +37,30 @@ public class AdminAction extends ActionSupport {
 	public String delete() throws Exception {
 		// 创建ActionContext实例
 		ActionContext ctx = ActionContext.getContext();
-		
+
 		String[] uids = (String[]) ctx.getParameters().get("uid");
-		
+
 		int id = Integer.parseInt(uids[0]);
-		
+
 		User userTemp = userService.findUserByID(id);
-		
+
 		if (userTemp != null) {
 			userService.delete(userTemp);
-			
+
 			map.clear();
 			map.put("result", "1");
-		}else {
+		} else {
 			map.clear();
 			map.put("result", "0");
 		}
-		
+
 		return "json";
 	}
 
 	public String update() throws Exception {
 
 		if (user.getId() > 0) {
-			userService.edit(user);
+			userService.update(user);
 
 			map.clear();
 			map.put("result", "1");

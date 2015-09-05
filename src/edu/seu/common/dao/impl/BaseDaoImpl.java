@@ -21,32 +21,27 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return this.sessionFactory;
 	}
 
-	// 根据ID加载实体
 	@SuppressWarnings("unchecked")
 	@Override
 	public T get(Class<T> entityClazz, Serializable id) {
 		return (T) getSessionFactory().getCurrentSession().get(entityClazz, id);
 	}
 
-	// 保存实体
 	@Override
 	public Serializable save(T entity) {
 		return getSessionFactory().getCurrentSession().save(entity);
 	}
 
-	// 更新实体
 	@Override
 	public void update(T entity) {
 		getSessionFactory().getCurrentSession().saveOrUpdate(entity);
 	}
 
-	// 删除实体
 	@Override
 	public void delete(T entity) {
 		getSessionFactory().getCurrentSession().delete(entity);
 	}
 
-	// 根据ID删除实体
 	@Override
 	public void delete(Class<T> entityClazz, Serializable id) {
 		getSessionFactory()
@@ -57,13 +52,11 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 				.executeUpdate();
 	}
 
-	// 获取所有实体
 	@Override
 	public List<T> findAll(Class<T> entityClazz) {
 		return find("select en from " + entityClazz.getSimpleName() + " en");
 	}
 
-	// 获取实体总数
 	@Override
 	public long findCount(Class<T> entityClazz) {
 		List<?> l = find("select count(*) from " + entityClazz.getSimpleName());
@@ -74,14 +67,25 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return 0;
 	}
 
-	// 根据HQL语句查询实体
+	/**
+	 * 根据HQL语句查询实体
+	 * 
+	 * @param hql
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	protected List<T> find(String hql) {
 		return (List<T>) getSessionFactory().getCurrentSession()
 				.createQuery(hql).list();
 	}
 
-	// 根据带占位符参数HQL语句查询实体
+	/**
+	 * 根据带占位符参数HQL语句查询实体
+	 * 
+	 * @param hql
+	 * @param params
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	protected List<T> find(String hql, Object... params) {
 		// 创建查询
