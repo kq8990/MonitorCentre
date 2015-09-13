@@ -1,5 +1,7 @@
 package edu.seu.mymodel.model;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -35,11 +37,20 @@ public class User {
 	// 密码
 	@Column(name = "user_password", nullable = false, length = 50)
 	private String password;
-	
+
+	// 用户权限
 	@ManyToOne(targetEntity = Authority.class)
 	@JoinColumn(name = "user_group")
 	private Authority authority;
-	
+
+	// 最后登录Ip地址
+	@JoinColumn(name = "ipLastActived", nullable = false)
+	private String ipLastActived;
+
+	// 最后登录时间
+	@JoinColumn(name = "dateLastActived", nullable = false)
+	private Date dateLastActived;
+
 	// 无参数构造器
 	public User() {
 		this.id = 0;
@@ -88,4 +99,21 @@ public class User {
 	public void setAuthority(Authority authority) {
 		this.authority = authority;
 	}
+
+	public String getIpLastActived() {
+		return ipLastActived;
+	}
+
+	public void setIpLastActived(String ipLastActived) {
+		this.ipLastActived = ipLastActived;
+	}
+
+	public Date getDateLastActived() {
+		return dateLastActived;
+	}
+
+	public void setDateLastActived(Date dateLastActived) {
+		this.dateLastActived = dateLastActived;
+	}
+
 }

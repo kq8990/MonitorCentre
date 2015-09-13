@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@taglib prefix="s" uri="/struts-tags"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -28,7 +28,7 @@
         ===
     -->
 
-<title>摄像机配置</title>
+<title>河口采油厂视频监控平台后台管理系统</title>
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -75,7 +75,7 @@
 
 <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="${pageContext.request.contextPath}/js/html5.js"></script>
 <![endif]-->
 
 <!-- The fav icon -->
@@ -91,11 +91,11 @@
 		<div class="row">
 			<div class="col-sm-2 col-lg-2">
 				<s:include value="sidebar.jsp">
-					<s:param name="active" value="'camera'"/>
 				</s:include>
 			</div>
 
 			<div id="content" class="col-lg-10 col-sm-10">
+				<h3 class="center">河口采油厂视频监控平台后台管理系统</h3>
 			</div>
 		</div>
 

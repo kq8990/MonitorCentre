@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="row">
         <div class="well col-md-3 center login-box">
             <div class="alert alert-info">
-                Please login with your Username and Password.
+                请输入用户名和密码.
             </div>
             <form class="form-horizontal" action="process_login" method="post">
                 <fieldset>
@@ -90,6 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </fieldset>
             </form>
             <s:fielderror/>
+            <s:actionerror/>
     	</div>
         <!--/span-->
     </div><!--/row-->

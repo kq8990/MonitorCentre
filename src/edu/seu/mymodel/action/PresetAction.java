@@ -3,6 +3,7 @@ package edu.seu.mymodel.action;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -58,14 +59,38 @@ public class PresetAction extends ActionSupport {
 			preset.setId(tempPreset.getId());
 			presetService.update(preset);
 
-			map.clear();
-			map.put("result", "1");
+			List<Preset> presets = presetService.findPresetsByIpAddress(preset
+					.getIpAddress()); // 根据Ip地址获取所有相关的预置点信息
+
+			if (presets != null && presets.size() > 0) {
+				Map<String, String> presetMap = new HashMap<String, String>();
+				for (Preset preset : presets) {
+					presetMap.put("preset_" + preset.getIndex(),
+							preset.getExplain());
+				}
+
+				map.clear();
+				map.put("result", "1");
+				map.put("preset_explain", presetMap);
+			} else {
+				map.clear();
+				map.put("result", "0");
+			}
 		} else {
 			map.clear();
 			map.put("result", "0");
 		}
 
 		return "json";
+	}
+	
+	public void validateUpdate() {
+		if (this.preset.getExplain() == null || this.preset.getExplain().equals("")) {
+			addFieldError("error", "预置点说明为空");
+		} else if (!Pattern.matches(WebConstant.REGEX_02, this.preset.getExplain())) {
+			addFieldError("error", "预置点说明只能由只能输入由数字、26个英文字母、汉字或者下划线组成");
+		}
+
 	}
 
 	public Preset getPreset() {

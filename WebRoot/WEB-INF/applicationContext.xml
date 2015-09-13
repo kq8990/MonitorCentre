@@ -17,7 +17,8 @@
 	<bean id="userService" class="edu.seu.mymodel.service.impl.UserServiceImpl"
 		p:userDao-ref="userDao" />
 	<bean id="cameraService" class="edu.seu.mymodel.service.impl.CameraServiceImpl"
-		p:cameraDao-ref="cameraDao" />
+		p:cameraDao-ref="cameraDao" 
+		p:presetDao-ref="presetDao"/>
 	<bean id="authorityService" class="edu.seu.mymodel.service.impl.AuthorityServiceImpl"
 		p:authorityDao-ref="authorityDao" />
 	<bean id="presetService" class="edu.seu.mymodel.service.impl.PresetServiceImpl"
