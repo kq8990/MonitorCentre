@@ -17,11 +17,13 @@
 	<bean id="userService" class="edu.seu.mymodel.service.impl.UserServiceImpl"
 		p:userDao-ref="userDao" />
 	<bean id="cameraService" class="edu.seu.mymodel.service.impl.CameraServiceImpl"
-		p:cameraDao-ref="cameraDao" />
+		p:cameraDao-ref="cameraDao" p:presetDao-ref="presetDao" />
 	<bean id="authorityService" class="edu.seu.mymodel.service.impl.AuthorityServiceImpl"
 		p:authorityDao-ref="authorityDao" />
 	<bean id="presetService" class="edu.seu.mymodel.service.impl.PresetServiceImpl"
 		p:presetDao-ref="presetDao" />
+	<bean id="userlogService" class="edu.seu.mymodel.service.impl.UserlogServiceImpl"
+		p:userlogDao-ref="userlogDao" />
 
 	<!-- 配置Hibernate的局部事务管理器，使用HibernateTransactionManager类 并注入SessionFactory的引用 -->
 	<bean id="transactionManager"
@@ -41,9 +43,10 @@
 		<!-- 配置一个切入点，匹配Service的Bean的所有方法的执行 -->
 		<aop:pointcut id="leePointcut"
 			expression="bean(userService) 
-												or bean(cameraService)
-												or bean(authorityService) 
-												or bean(presetService)" />
+						or bean(cameraService)
+						or bean(authorityService) 
+						or bean(presetService)
+						or bean(userlogService)" />
 
 		<!-- 指定在leePointcut切入点应用txAdvice事务增强处理 -->
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="leePointcut" />

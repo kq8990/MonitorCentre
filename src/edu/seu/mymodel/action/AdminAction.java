@@ -3,6 +3,7 @@ package edu.seu.mymodel.action;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -34,12 +35,17 @@ public class AdminAction extends ActionSupport {
 		return "json";
 	}
 
+	/**
+	 * 删除User实体Action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	public String delete() throws Exception {
-		// 创建ActionContext实例
-		ActionContext ctx = ActionContext.getContext();
+		ActionContext ctx = ActionContext.getContext(); // 创建ActionContext实例
 
+		// 获取请求中的参数：id
 		String[] uids = (String[]) ctx.getParameters().get("uid");
-
 		int id = Integer.parseInt(uids[0]);
 
 		User userTemp = userService.findUserByID(id);
@@ -57,8 +63,13 @@ public class AdminAction extends ActionSupport {
 		return "json";
 	}
 
+	/**
+	 * 修改User实体Action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	public String update() throws Exception {
-
 		if (user.getId() > 0) {
 			userService.update(user);
 
@@ -72,16 +83,52 @@ public class AdminAction extends ActionSupport {
 		return "json";
 	}
 
+	/**
+	 * 获取User实体列表Action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	public String setting() throws Exception {
-
-		// 创建ActionContext实例
-		ActionContext ctx = ActionContext.getContext();
+		ActionContext ctx = ActionContext.getContext(); // 创建ActionContext实例
 
 		List<User> userList = userService.findAllUsers();
 
 		ctx.put("userList", userList);
 
 		return "list";
+	}
+
+	public void validateSave() {
+		if (this.user.getName() == null || this.user.getName().equals("")) {
+			addFieldError("name", "用户名为空");
+		} else if (!Pattern.matches(WebConstant.REGEX_01, this.user.getName())) {
+			addFieldError("name", "用户名只能由只能输入由数字、26个英文字母或者下划线组成");
+		}
+
+		if (this.user.getPassword() == null
+				|| this.user.getPassword().equals("")) {
+			addFieldError("password", "密码为空");
+		} else if (!Pattern.matches(WebConstant.REGEX_01,
+				this.user.getPassword())) {
+			addFieldError("password", "密码只能由只能输入由数字、26个英文字母或者下划线组成");
+		}
+	}
+	
+	public void validateUpdate() {
+		if (this.user.getName() == null || this.user.getName().equals("")) {
+			addFieldError("name", "用户名为空");
+		} else if (!Pattern.matches(WebConstant.REGEX_01, this.user.getName())) {
+			addFieldError("name", "用户名只能由只能输入由数字、26个英文字母或者下划线组成");
+		}
+
+		if (this.user.getPassword() == null
+				|| this.user.getPassword().equals("")) {
+			addFieldError("password", "密码为空");
+		} else if (!Pattern.matches(WebConstant.REGEX_01,
+				this.user.getPassword())) {
+			addFieldError("password", "密码只能由只能输入由数字、26个英文字母或者下划线组成");
+		}
 	}
 
 	public String getUser_password_confirm() {

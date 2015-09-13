@@ -21,7 +21,14 @@ public interface CameraService {
 	public void delete(Camera camera);
 
 	/**
-	 * 根据ID查询相关Camera信息
+	 * 修改摄像机信息
+	 * 
+	 * @param camera
+	 */
+	public void update(Camera camera);
+
+	/**
+	 * 根据ID查询相关摄像机信息
 	 * 
 	 * @param id
 	 * @return
@@ -29,21 +36,14 @@ public interface CameraService {
 	public Camera findCameraByID(int id);
 
 	/**
-	 * Camera 修改
-	 * 
-	 * @param camera
-	 */
-	public void edit(Camera camera);
-
-	/**
-	 * 查询所有Camera配置信息
+	 * 查询所有摄像机配置信息
 	 * 
 	 * @return
 	 */
 	public List<Camera> findAllCameras();
 
 	/**
-	 * 根据名字查询相关Camera信息
+	 * 根据名字查询相关摄像机信息
 	 * 
 	 * @param camera
 	 * @return
@@ -51,7 +51,7 @@ public interface CameraService {
 	public List<Camera> findCameraByName(Camera camera);
 
 	/**
-	 * 根据通道号查询相关Camera信息业务
+	 * 根据通道号查询相关摄像机信息
 	 * 
 	 * @param channelNumber
 	 * @return

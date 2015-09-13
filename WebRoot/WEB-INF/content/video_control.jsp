@@ -525,8 +525,7 @@
 				var szDevPort = document.getElementById("DevicePort").value;
 				var szDevUser = document.getElementById("DeviceUsername").value;
 				var szDevPwd = document.getElementById("DevicePasswd").value;
-				// m_iLoginUserId = m_bDVRControl.Login(szDevIp, szDevPort, szDevUser, szDevPwd);
-				m_iLoginUserId = 1;
+				m_iLoginUserId = m_bDVRControl.Login(szDevIp, szDevPort, szDevUser, szDevPwd);
 				if (m_iLoginUserId == -1) {
 					LogMessage("注册失败！");
 				} else {
@@ -545,6 +544,7 @@
 								$("#Preset").change(function(){
 									$("#presetExplain").val(preset_explain['preset_' + ($(this).val() - 1)]);
 								});
+								$("#presetExplain").val(preset_explain['preset_0']);
 								LogMessage("获取预置点说明成功！");
 							} else {
 								LogMessage("获取预置点说明失败！");
@@ -1021,8 +1021,7 @@
 				m_iPlay = 1;
 				if (m_iPlay == 1) {
 					var iPreset = parseInt(document.getElementById("Preset").value);
-					// var bRet = m_bDVRControl.PTZCtrlSetPreset(iPreset);
-					var bRet = 1;
+					var bRet = m_bDVRControl.PTZCtrlSetPreset(iPreset);
 					if (bRet == 1) {
 						var szDevIp = document.getElementById("CameraList").value;
 						var presetExplain = document.getElementById("presetExplain").value;
@@ -1036,9 +1035,18 @@
 							success : function(data) {
 								var check = eval("(" + data + ")");
 								if (check.result == 1) {
+									var preset_explain = check.preset_explain;
+									$("#Preset").change(function(){
+										$("#presetExplain").val(preset_explain['preset_' + ($(this).val() - 1)]);
+									});
+									$("#presetExplain").val(preset_explain['preset_' + $("#Preset").get(0).selectedIndex]);
 									LogMessage("设置预置点成功！");
 								} else {
-									LogMessage("设置预置点失败！");
+									if (check.fieldErrors != null){
+										LogMessage("设置预置点失败！" + check.fieldErrors.error[0]);
+									} else{
+										LogMessage("设置预置点失败！");
+									}									
 								}
 							}
 						});

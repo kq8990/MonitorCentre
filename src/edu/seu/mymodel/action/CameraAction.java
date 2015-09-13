@@ -19,29 +19,51 @@ public class CameraAction extends ActionSupport {
 
 	protected CameraService cameraService;
 
-	public String setting() throws Exception {
+	/**
+	 * 获取摄像机信息列表Action
+	 * @return
+	 * @throws Exception
+	 */
+	public String setting() throws Exception {			
+		ActionContext ctx = ActionContext.getContext(); // 创建ActionContext实例
 
-		// 创建ActionContext实例
-		ActionContext ctx = ActionContext.getContext();
-
-		// 获取所有Camera实体
-		List<Camera> cameraList = cameraService.findAllCameras();
-
+		List<Camera> cameraList = cameraService.findAllCameras(); // 获取所有Camera实体
+		
 		ctx.put("cameraList", cameraList);
 
 		return "list";
 	}
 
+	/**
+	 * 保存摄像机信息Action
+	 * @return
+	 * @throws Exception
+	 */
 	public String save() throws Exception {
-		String regex01 = "^[\u4E00-\u9FA5A-Za-z0-9_]+$";
-		String regex02 = "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}";
+		cameraService.save(camera);
 
-		// 字段较检
-		Boolean validation = Pattern.matches(regex01, camera.getName())
-				&& Pattern.matches(regex02, camera.getIpAddress());
+		map.clear();
+		map.put("result", "1");
 
-		if (validation) {
-			cameraService.save(camera);
+		return "json";
+	}
+
+	/**
+	 * 删除摄像机信息Action
+	 * @return
+	 * @throws Exception
+	 */
+	public String delete() throws Exception {
+		ActionContext ctx = ActionContext.getContext(); // 创建ActionContext实例
+
+		String[] cids = (String[]) ctx.getParameters().get("cid");
+
+		int id = Integer.parseInt(cids[0]);
+
+		Camera cameraTemp = cameraService.findCameraByID(id);
+
+		if (cameraTemp != null) {
+			cameraService.delete(cameraTemp);
 
 			map.clear();
 			map.put("result", "1");
@@ -53,35 +75,12 @@ public class CameraAction extends ActionSupport {
 		return "json";
 	}
 
-	public String delete() throws Exception{
-		// 创建ActionContext实例
-		ActionContext ctx = ActionContext.getContext();
-		
-		// Map<String, Object> params = ctx.getParameters();
-		
-		String[] cids = (String[]) ctx.getParameters().get("cid");
-		
-		int id = Integer.parseInt(cids[0]);
-		
-		Camera cameraTemp = cameraService.findCameraByID(id);
-		
-		if (cameraTemp != null) {
-			cameraService.delete(cameraTemp);
-			
-			map.clear();
-			map.put("result", "1");
-		}else {
-			map.clear();
-			map.put("result", "0");
-		}
-		
-		return "json";
-	}
-	
+	/**
+	 * 修改摄像机信息Action
+	 * @return
+	 * @throws Exception
+	 */
 	public String update() throws Exception {
-		String regex01 = "^[\u4E00-\u9FA5A-Za-z0-9_]+$";
-		String regex02 = "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}";
-
 		// 配置修改信息
 		Camera cameraTemp = cameraService.findCameraByID(camera.getId());
 		cameraTemp.setIpAddress(camera.getIpAddress());
@@ -96,24 +95,53 @@ public class CameraAction extends ActionSupport {
 		cameraTemp.setFocusing(camera.getFocusing());
 		cameraTemp.setMoving(camera.getMoving());
 
-		// 字段较检
-		Boolean validation = Pattern.matches(regex01, cameraTemp.getName())
-				&& Pattern.matches(regex02, cameraTemp.getIpAddress());
-
-		// 保存修改信息
-		if (cameraTemp.getId() > 0 && validation) {
-			cameraService.edit(cameraTemp);
+		if (cameraTemp.getId() > 0) {
+			cameraService.update(cameraTemp);
 
 			map.clear();
 			map.put("result", "1");
 		} else {
 			map.clear();
 			map.put("result", "0");
-		}
+		} // 保存修改信息
 
 		return "json";
 	}
 
+	public void validateSave() {
+		if (this.camera.getName() == null || this.camera.getName().equals("")) {
+			addFieldError("name", "摄像机名字为空");
+		} else if (!Pattern
+				.matches(WebConstant.REGEX_02, this.camera.getName())) {
+			addFieldError("name", "摄像机名字只能由只能输入由数字、26个英文字母或者下划线组成");
+		}
+
+		if (this.camera.getIpAddress() == null
+				|| this.camera.getIpAddress().equals("")) {
+			addFieldError("ip", "IP地址为空");
+		} else if (!Pattern.matches(WebConstant.REGEX_IP,
+				this.camera.getIpAddress())) {
+			addFieldError("ip", "IP地址格式有误");
+		}
+	}
+
+	public void validateUpdate() {
+		if (this.camera.getName() == null || this.camera.getName().equals("")) {
+			addFieldError("name", "摄像机名字为空");
+		} else if (!Pattern
+				.matches(WebConstant.REGEX_02, this.camera.getName())) {
+			addFieldError("name", "摄像机名字只能由只能输入由数字、26个英文字母或者下划线组成");
+		}
+
+		if (this.camera.getIpAddress() == null
+				|| this.camera.getIpAddress().equals("")) {
+			addFieldError("ip", "IP地址为空");
+		} else if (!Pattern.matches(WebConstant.REGEX_IP,
+				this.camera.getIpAddress())) {
+			addFieldError("ip", "IP地址格式有误");
+		}
+	}
+	
 	public Camera getCamera() {
 		return camera;
 	}

@@ -108,10 +108,10 @@
 								<h2>
 									<i class="glyphicon glyphicon-facetime-video"></i>用户列表
 								</h2>
-								<div class="box-icon">
-									<button class="btn btn-setting btn-round btn-default" type="button" 
+								<div class="pull-right">
+									<button class="btn btn-inverse btn-default btn-xs" type="button" 
 										data-toggle="modal" data-target="#modal_user_save">
-										<i class="glyphicon glyphicon-cog"></i>
+										<i class="glyphicon glyphicon-edit icon-white"></i> 
 										添加用户
 									</button>
 								</div>
@@ -147,6 +147,10 @@
 															删除
 														</a>
 													</c:if>
+													<a class="btn btn-info btn-sm" href="UserLogForm"> 
+														<i class="glyphicon glyphicon-edit icon-white"></i>
+														操作记录
+													</a>
 												</td>
 											</tr>
 										</c:forEach>

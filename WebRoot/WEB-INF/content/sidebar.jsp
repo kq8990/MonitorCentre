@@ -33,6 +33,12 @@
                             <span> 权限管理</span>
                         </a>
                     </li>
+                    <li <c:if test="${param.active == 'query_log' }">class="active"</c:if>>
+                        <a class="ajax-link" href="UserlogQuery">
+                            <i class="glyphicon glyphicon-user"></i>
+                            <span> 用户操作记录查询</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

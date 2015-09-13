@@ -9,8 +9,8 @@
 	<!-- 并设置连接数据库的驱动、URL、用户名、密码， 连接池最大连接数、最小连接数、初始连接数等参数 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close" p:driverClass="com.mysql.jdbc.Driver"
-		p:jdbcUrl="jdbc:mysql://localhost:3306/hikvision" p:user="admin"
-		p:password="admin" p:maxPoolSize="200" p:minPoolSize="2"
+		p:jdbcUrl="jdbc:mysql://localhost:3306/hikvision" p:user="root"
+		p:password="Seu-143519" p:maxPoolSize="200" p:minPoolSize="2"
 		p:initialPoolSize="2" p:maxIdleTime="20" />
 
 	<!-- 定义Hibernate的SessionFactory，并依赖注入数据源，注入上面定义的dataSource -->
@@ -25,6 +25,7 @@
 				<value>edu.seu.mymodel.model.Camera</value>
 				<value>edu.seu.mymodel.model.Authority</value>
 				<value>edu.seu.mymodel.model.Preset</value>
+				<value>edu.seu.mymodel.model.Userlog</value>
 			</list>
 		</property>
 		<!-- 定义Hibernate的SessionFactory的属性 -->
@@ -59,5 +60,8 @@
 
 	<bean id="presetDao" class="edu.seu.mymodel.dao.impl.PresetDaoImpl"
 		parent="daoTemplate" />
+
+	<bean id="userlogDao" class="edu.seu.mymodel.dao.impl.UserlogDaoImpl"
+		parent="daoTemplate"/>
 
 </beans>

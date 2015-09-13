@@ -31,16 +31,22 @@ public class Preset {
 
 	@Column(name = "preset_status")
 	private int status;
-	
-	
 
 	public Preset() {
-		super();
 		this.id = 0;
 		this.index = 0;
 		this.ipAddress = "";
 		this.explain = "";
 		this.status = 0;
+	}
+
+	public Preset(int id, int index, String ipAddress, String explain,
+			int status) {
+		this.id = id;
+		this.index = index;
+		this.ipAddress = ipAddress;
+		this.explain = explain;
+		this.status = status;
 	}
 
 	public int getId() {
